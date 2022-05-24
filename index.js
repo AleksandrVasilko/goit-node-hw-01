@@ -5,13 +5,13 @@ const argv = require("yargs").argv;
 const  invokeAction = async({ action, id, name, email, phone }) => {
   switch (action) {
     case "list":
-      // ...
-          const data = await operations.getAll()
-        console.log('getAll', data)
+      const data = await operations.listContacts()
+      console.log('listContacts', data)
       break;
 
     case "get":
-      // ... id
+      const contact = await operations.getContactById(id);
+      console.log('getContactById', contact);
       break;
 
     case "add":
@@ -23,12 +23,19 @@ const  invokeAction = async({ action, id, name, email, phone }) => {
       break;
 
     default:
-      console.warn("\x1B[31m Unknown action type!");
+      console.warn("");
   }
 }
 
 
 invokeAction(argv);
+
+// invokeAction({
+//     action: 'get',
+//     contactId: '5'   
+// })
+
+//invokeAction({ action: 'list' });
 
 /*
 const invoke = async ({ action, contactId, name, email, phone }) => { 

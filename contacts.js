@@ -11,8 +11,10 @@ async function listContacts() {
 }
 
 async function getContactById(contactId) {
+    console.log(contactId)
     const allContacts = await listContacts();
     const contact = allContacts.find(contact => contact.id === contactId);
+    console.log(contact)
     return contact ? contact : null;
 }
 
@@ -46,3 +48,5 @@ async function addContact(name, email, phone) {
 module.exports = {
     listContacts, getContactById, removeContact, addContact
 }
+
+//getContactById("5");
