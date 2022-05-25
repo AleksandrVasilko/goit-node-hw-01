@@ -11,31 +11,23 @@ async function listContacts() {
 }
 
 async function getContactById(contactId) {
-    console.log(contactId)
+    const type = (typeof contactId)
     const allContacts = await listContacts();
-    const contact = allContacts.find(contact => contact.id === contactId);
-    console.log(contact)
+    const contactType = allContacts.find(contact => {
+        contact.id
+        const typeId = typeof contact.id
+
+        if(typeId !== type){
+            contactId = String(contactId)
+        }
+    });
+    const contact = allContacts.find(contact => contact.id === contactId)
     return contact ? contact : null;
-}
-
-
-async function removeContact(contactId) {
-    const allNewContacts = await listContacts();
-    const dataString = await fs.readFile(contactsPath, 'utf8');
-    const data = JSON.parse(dataString);
-    const idRemove = data.map(el => el.id)
-    const indexDel = idRemove.indexOf(contactId)
-    console.log(indexDel)
-    if (indexDel !== -1) { 
-        allNewContacts.splice(indexDel, 1)
-    }
-    console.log(data);
-    await fs.writeFile(contactsPath, JSON.stringify(allNewContacts));
 }
 
 async function addContact(name, email, phone) {
     const newContact = {
-        id: uuid(),
+        id: uuid.v4(),
         name: name,
         email: email,
         phone: phone,
@@ -43,10 +35,30 @@ async function addContact(name, email, phone) {
     const allContacts = await listContacts();
     allContacts.push(newContact);
     await fs.writeFile(contactsPath, JSON.stringify(allContacts));
+    console.log(allContacts)
 }
+
+async function removeContact(contactId) {
+    const type = (typeof contactId)
+    const allNewContacts = await listContacts();
+    const contactIndexType = allNewContacts.find(contact => {
+        contact.id
+        const typeId = typeof contact.id
+        if(typeId !== type){
+            contactId = String(contactId)
+        }
+    });
+
+    const contactIndex = allNewContacts.findIndex(contact => contact.id === contactId);
+    if (contactIndex !== -1) { 
+        allNewContacts.splice(contactIndex,1)
+        await fs.writeFile(contactsPath, JSON.stringify(allNewContacts));
+    }    
+    console.log(allNewContacts)
+}
+
+
 
 module.exports = {
-    listContacts, getContactById, removeContact, addContact
+    listContacts, getContactById, addContact, removeContact
 }
-
-//getContactById("5");
