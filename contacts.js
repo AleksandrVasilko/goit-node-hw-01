@@ -39,8 +39,7 @@ async function addContact(name, email, phone) {
 async function removeContact(contactId) {
     const type = (typeof contactId)
     const allNewContacts = await listContacts();
-    const contactIndexType = allNewContacts.find(contact => {
-        contact.id
+    allNewContacts.map(contact => {
         const typeId = typeof contact.id
         if(typeId !== type){
             contactId = String(contactId)
