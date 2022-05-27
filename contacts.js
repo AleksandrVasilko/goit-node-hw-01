@@ -13,10 +13,8 @@ async function listContacts() {
 async function getContactById(contactId) {
     const type = (typeof contactId)
     const allContacts = await listContacts();
-    const contactType = allContacts.find(contact => {
-        contact.id
+    allContacts.map(contact => {
         const typeId = typeof contact.id
-
         if(typeId !== type){
             contactId = String(contactId)
         }
